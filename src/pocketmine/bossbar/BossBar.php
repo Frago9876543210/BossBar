@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace pocketmine\bossbar;
 
 use Frago9876543210\BossBar\BossBarAPI;
-use pocketmine\entity\{EntityFactory, EntityIds};
+use pocketmine\entity\EntityFactory;
 use pocketmine\math\Vector3;
-use pocketmine\network\mcpe\protocol\{AddActorPacket, BossEventPacket};
+use pocketmine\network\mcpe\protocol\{AddActorPacket, BossEventPacket, types\EntityLegacyIds};
 use pocketmine\player\Player;
 use function spl_object_id;
 
@@ -77,7 +77,7 @@ class BossBar{
 	public function addViewer(Player $player) : void{
 		$pk = new AddActorPacket();
 		$pk->entityRuntimeId = $this->entityRuntimeId;
-		$pk->type = EntityIds::SLIME;
+		$pk->type = EntityLegacyIds::SLIME;
 		$pk->position = new Vector3();
 		$player->sendDataPacket($pk);
 
