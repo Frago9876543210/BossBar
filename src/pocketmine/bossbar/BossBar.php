@@ -7,7 +7,7 @@ namespace pocketmine\bossbar;
 use Frago9876543210\BossBar\BossBarAPI;
 use pocketmine\entity\EntityFactory;
 use pocketmine\math\Vector3;
-use pocketmine\network\mcpe\protocol\{AddActorPacket, BossEventPacket, types\EntityLegacyIds};
+use pocketmine\network\mcpe\protocol\{AddActorPacket, BossEventPacket, types\entity\EntityLegacyIds};
 use pocketmine\player\Player;
 use function spl_object_id;
 
