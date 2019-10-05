@@ -45,7 +45,7 @@ class BossBar{
 
 		$pk = BossEventPacket::title($this->entityRuntimeId, $this->title);
 		foreach($this->viewers as $viewer){
-			$viewer->sendDataPacket($pk);
+			$viewer->getNetworkSession()->sendDataPacket($pk);
 		}
 	}
 
@@ -67,7 +67,7 @@ class BossBar{
 
 		$pk = BossEventPacket::healthPercent($this->entityRuntimeId, $this->healthPercent);
 		foreach($this->viewers as $viewer){
-			$viewer->sendDataPacket($pk);
+			$viewer->getNetworkSession()->sendDataPacket($pk);
 		}
 	}
 
@@ -79,9 +79,9 @@ class BossBar{
 		$pk->entityRuntimeId = $this->entityRuntimeId;
 		$pk->type = EntityLegacyIds::SLIME;
 		$pk->position = new Vector3();
-		$player->sendDataPacket($pk);
+		$player->getNetworkSession()->sendDataPacket($pk);
 
-		$player->sendDataPacket(BossEventPacket::show($this->entityRuntimeId, $this->title, $this->healthPercent));
+		$player->getNetworkSession()->sendDataPacket(BossEventPacket::show($this->entityRuntimeId, $this->title, $this->healthPercent));
 
 		BossBarAPI::addBossBar($player, $this);
 		$this->viewers[spl_object_id($player)] = $player;
@@ -96,7 +96,7 @@ class BossBar{
 		if(isset($this->viewers[$id])){
 			if($send){
 				BossBarAPI::removeBossBar($player, $this);
-				$player->sendDataPacket(BossEventPacket::hide($this->entityRuntimeId));
+				$player->getNetworkSession()->sendDataPacket(BossEventPacket::hide($this->entityRuntimeId));
 			}
 			unset($this->viewers[$id]);
 		}
