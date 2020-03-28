@@ -77,7 +77,7 @@ class BossBar{
 	public function addViewer(Player $player) : void{
 		$pk = new AddActorPacket();
 		$pk->entityRuntimeId = $this->entityRuntimeId;
-		$pk->type = EntityLegacyIds::SLIME;
+		$pk->type = AddActorPacket::LEGACY_ID_MAP_BC[EntityLegacyIds::SLIME];
 		$pk->position = new Vector3();
 		$player->getNetworkSession()->sendDataPacket($pk);
 
