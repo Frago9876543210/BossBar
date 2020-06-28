@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace pocketmine\bossbar;
 
 use Frago9876543210\BossBar\BossBarAPI;
-use pocketmine\entity\EntityFactory;
+use pocketmine\entity\Entity;
 use pocketmine\math\Vector3;
-use pocketmine\network\mcpe\protocol\{AddActorPacket, BossEventPacket, types\entity\EntityLegacyIds};
+use pocketmine\network\mcpe\protocol\{AddActorPacket, BossEventPacket, types\entity\EntityIds};
 use pocketmine\player\Player;
 use function spl_object_id;
 
@@ -25,7 +25,7 @@ class BossBar{
 		if($healthPercent < 0 or $healthPercent > 1){
 			throw new \InvalidArgumentException("healthPercent must be in range [0-1]");
 		}
-		$this->entityRuntimeId = EntityFactory::nextRuntimeId();
+		$this->entityRuntimeId = Entity::nextRuntimeId();
 		$this->title = $title;
 		$this->healthPercent = $healthPercent;
 	}
@@ -77,8 +77,8 @@ class BossBar{
 	public function addViewer(Player $player) : void{
 		$pk = new AddActorPacket();
 		$pk->entityRuntimeId = $this->entityRuntimeId;
-		$pk->type = AddActorPacket::LEGACY_ID_MAP_BC[EntityLegacyIds::SLIME];
-		$pk->position = new Vector3();
+		$pk->type = EntityIds::SLIME;
+		$pk->position = new Vector3(0, 0, 0);
 		$player->getNetworkSession()->sendDataPacket($pk);
 
 		$player->getNetworkSession()->sendDataPacket(BossEventPacket::show($this->entityRuntimeId, $this->title, $this->healthPercent));
